@@ -1,7 +1,6 @@
 FROM linuxmintd/mint19-amd64
 
 run apt-get update
-run apt-get install -y apt-utils
 run apt-get install -y build-essential libssl-dev git
 run apt-get install -y yasm libgmp-dev libpcap-dev pkg-config libbz2-dev
 
