@@ -12,9 +12,6 @@ run useradd -d /home/bsk -p bsk -s /bin/bash bsk
 run echo 'bsk:bardzotajnehaslo' | chpasswd
 run echo 'root:root' | chpasswd
 
-run mkdir -p /home/bsk/.ssh
-run chown -R bsk:bsk /home/bsk
-
 WORKDIR /
 
 EXPOSE 22
