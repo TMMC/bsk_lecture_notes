@@ -1,29 +1,24 @@
-# https://www.unixmen.com/install-apache-ssl-ubuntu-13-10/
-# https://www.itzgeek.com/how-tos/linux/linux-mint-how-tos/install-apache-web-server-on-linux-mint-13-linux-mint-14.html
-
 FROM linuxmintd/mint19-amd64
 
 run apt-get update
-run apt-get install -y apache2 apache2-doc apache2-utils
-run apt-get install -y vim
+run apt-get install -y vim gnupg2 
 
-run mkdir /etc/apache2/ssl
-run mkdir /var/www/html/example
-run rm /var/www/html/index.html
+# https://d.sb/2016/11/gpg-inappropriate-ioctl-for-device-errors
+run gpg --list-keys
+run echo "use-agent" >> ~/.gnupg/gpg.conf
+run echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+run echo "allow-loopback-pinentry" >>  ~/.gnupg/gpg-agent.conf
 
-add dockerfiles/server.key /etc/apache2/ssl/apache.key
-add dockerfiles/server.crt /etc/apache2/ssl/apache.crt
-add dockerfiles/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
-add dockerfiles/index.html /var/www/html/example/index.html
 
-run a2enmod ssl
-run a2ensite default-ssl
+add dockerfiles/bsk.key bsk.key
+add dockerfiles/test.key test.key
+add dockerfiles/message1.asc message1.asc
+add dockerfiles/message2.asc message2.asc
 
-WORKDIR /bsk
-ADD . /bsk
+# https://unix.stackexchange.com/questions/60213/gpg-asks-for-password-even-with-passphrase
+run gpg --batch --yes --passphrase bsk --import bsk.key
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 22
 
 CMD ["/bin/bash"]
 
