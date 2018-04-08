@@ -9,7 +9,6 @@ run echo "use-agent" >> ~/.gnupg/gpg.conf
 run echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
 run echo "allow-loopback-pinentry" >>  ~/.gnupg/gpg-agent.conf
 
-
 add dockerfiles/bsk.key bsk.key
 add dockerfiles/test.key test.key
 add dockerfiles/message1.asc message1.asc
